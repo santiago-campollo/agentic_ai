@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "engineering-copilot-agent"
+version = "0.1.0"
+description = "An educational, deterministic AI-agent skeleton that inspects, explains and reviews code."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Engineering Copilot Agent contributors" }]
+keywords = ["education", "ai-agents", "github-copilot", "code-review"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Education",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+engineering-agent = "agent.cli:main"
+
+[tool.setuptools]
+packages = ["agent", "tools"]
+
+[tool.setuptools.package-data]
+agent = ["instructions.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "sample_project"]
+pythonpath = ["."]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.format]
+# Snippets in Markdown docs are illustrative fragments, not full modules.
+exclude = ["*.md"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+# `ruff format` wraps code; long human-readable messages are allowed.
+ignore = ["E501"]
